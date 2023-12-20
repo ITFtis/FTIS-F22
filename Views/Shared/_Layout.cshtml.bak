@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產基會工服案諮詢通報系統</title>
+    <link rel="SHORTCUT ICON" href="~/images/logo.png" data-logo />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/dou/css")
+    @Styles.Render("~/content/prj/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/dou/js")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>*@
+
+    @*<script> $.AppConfigOptions = { script: { gispath: "@Url.Content("~/Scripts/gis")" } }; </script>*@
+
+    <style>
+
+        /*muti level*/
+        .nav .dropdown-submenu {
+            position: relative;
+        }
+
+            .nav .dropdown-submenu > .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -6px;
+                margin-left: -1px;
+                -webkit-border-radius: 0 6px 6px 6px;
+                -moz-border-radius: 0 6px 6px 6px;
+                border-radius: 0 6px 6px 6px;
+            }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .nav .dropdown-submenu > a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #cccccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+
+        .nav .dropdown-submenu:hover > a:after {
+            border-left-color: #ffffff;
+        }
+
+        .nav .dropdown-submenu.pull-left {
+            float: none;
+        }
+
+        .dropdown-submenu.pull-left > .dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
+    </style>
+
+</head>
+<body>
+    <header class="fixed-top">
+        <nav class="dou-menu navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">*@
+            <div class="container-fluid">
+                <h3 class="prj-title"><b>產基會工服案諮詢通報系統</b></h3>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1 justify-content-end">
+                        @Html.Partial("DouMenuPartial")
+
+                        @*@Html.Partial("DouUserProfilePartial")*@
+
+                    </ul>
+                </div>
+                @Html.Partial("DouUserProfilePartial")
+            </div>
+        </nav>
+        @*@Html.Partial("DouUserProfilePartial")*@
+    </header>
+    <div class="container-fluid body-content">
+        @RenderBody()
+
+    </div>
+    <hr />
+    <footer class="text-center">
+        <p>&copy; @DateTime.Now.Year - 版權所有,最佳解析度1280x800</p>
+    </footer>
+
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>

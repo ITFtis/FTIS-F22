@@ -1,0 +1,11 @@
+﻿@model Dou.Models.UserBase
+@{
+    ViewBag.Title = "DouLoginError";
+}
+<div style="display:flex; justify-content:center; align-items:center; flex-direction:column;height:100%">
+    <h3>@Model.Name 您好</h3>
+    <h2><b style="color:red">@ViewBag.ErrorMessage</b> 請洽系統管理員</h2>
+    <h3><a href="@ViewBag.LogoffUrl">請稍後再登入</a></h3>
+</div>
+
+

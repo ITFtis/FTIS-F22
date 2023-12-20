@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
+    <link href="~/images/favicon.ico" rel="icon" type="image/x-icon">
+    <title>T8 資料供應平台</title>
+
+    @{
+        Layout = null;
+    }
+    @***********需修改User Namespace**************@
+    @model Dou.Models.UserBase
+    <link href="~/Scripts/gis/b3/css/bootstrap.css" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/dou/js")
+    <script>$.AppConfigOptions = { default_loading: '@Url.Content("~/Scripts/gis/images/loading/loading_black.gif")' } ;</script>
+    <style>
+        body{
+            position:absolute;
+            height:100%;
+            width:100%;
+        }
+        .dou-login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        .title-logo-container {
+            flex: 1;
+            display: block;
+            font-size: 3.2vw;
+            /*padding-top: 5vh;*/
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index:999;
+        }
+
+        .title-logo-container > * {
+            text-shadow: .1vw .1vw .2vw #a6a9aa,-.1vw -.1vw .2vw #a6a9aa;
+            font-weight: bold;
+            color: #0f4b8a;
+        }
+        .dou-login-container .form-container {
+            flex: auto;
+            z-index: 99;
+        }
+
+        .dou-login-container form {
+            /*min-width: 300px;*/
+            padding: 2rem 2rem;
+            border: 1px #ddd solid;
+            border-radius: .5rem;
+            background: rgba(166,169,170,.5);
+        }
+
+        .dou-login-container form input {
+            width: 320px !important;
+        }
+        .form-container .btn{
+            width:100%;
+        }
+
+        .input-group-addon {
+            z-index: 3;
+        }
+
+        .toggle-password {
+            margin-left: -2.5em;
+            cursor: pointer;
+            line-height: 1.5;
+            border: none;
+            background-color: transparent;
+            color: gray;
+        }
+
+
+        .form-group{
+            margin-bottom:1.4rem;
+        }
+        hr {
+            border-top: 2px solid rgba(255, 255, 255, 1);
+            margin-top: -0.4rem;
+            margin-bottom: .625rem;
+        }
+        #Password {
+            border-radius: .375rem;
+            z-index:1;
+        }
+
+        .bg-container {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+       
+        @@media(max-width: 512px) {
+            .title-logo-container {
+                font-size: 1.5rem;
+            }
+            .dou-login-container .form-container {
+                width: 92%;
+            }
+
+            .dou-login-container form {
+                padding: 1rem 1.5rem;
+            }
+
+            .dou-login-container form input {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-container bg-image"><div class=""></div></div>
+    <div class="dou-login-container">
+
+    
+        <div class="title-logo-container">
+            <div><img src="~/Images/T8.svg"></div>
+            <label>T8 資料供應平台</label>
+        </div>
+        <div class="form-container">
+            @************重設User controller****************@
+            @using (Html.BeginForm("DouLogin", "User", new { ReturnUrl = ViewBag.ReturnUrl, re = true }, FormMethod.Post))
+            {
+                <h4>使用者登入</h4>
+                <hr>
+                if (ViewBag.ErrorMessage != null)
+                {
+                    <label style="color:red">@ViewBag.ErrorMessage</label>
+                }
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Id, new { @class = " control-label" })
+
+                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                    <div class="input-group">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        <span class="input-group-addon">
+                            <i class="glyphicon  glyphicon-eye-open  glyphicon-eye-close toggle-password input-group-text" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success col-sm-12" value="@ViewBag.ReturnUrl"> 送 出 </button>
+                <div class="clearfix"></div>
+            }
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.toggle-password').click(function () {
+            $(this).toggleClass('glyphicon-eye-close')
+            $("#Password").attr('type', $(this).hasClass('glyphicon-eye-close') ? 'password' : 'text');
+            $(this).closest('.form-group').find('input').focus();
+        })
+    });
+</script>

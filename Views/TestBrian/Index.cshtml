@@ -1,0 +1,56 @@
+﻿@using Dou.Misc.Extension
+@Html.MenuMap()
+
+<div class="row">
+    <div class="col-12">
+        <div class="col-6">
+            <div class="col-6">
+                <button id="btnDownloadFiles" type="button" class="btn btn-primary "> 全月薪水統計表 </button>
+            </div>
+            <div class="col-6">
+                <div id="lnkDownload"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //取得換薪加班
+    $("#btnDownloadFiles").on("click", function () {
+        helper.misc.showBusyIndicator();
+        $.ajax({
+            url: '/' + 'TestBrian/DownloadFiles',
+            datatype: "json",
+            type: "Get",
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                if (data.result) {
+                    $("#lnkDownload").empty();
+
+                    var urls = [];
+                    var ppp = $("#lnkDownload");
+                    data.url.forEach(function (url) {
+
+                        var pos = url.lastIndexOf('/');
+                        var str = url.substring(pos + 1);
+                        urls.push('<a target="_blank" href="' + app.siteRoot + url + '">' + str + '</a>');
+                    });
+                    $(urls.join('</br>')).appendTo(ppp);
+
+                    alert("產出統計表成功");
+                } else {
+                    alert("產出統計表失敗：\n" + data.errorMessage);
+                }
+            },
+            complete: function () {
+                helper.misc.hideBusyIndicator();
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+                helper.misc.hideBusyIndicator();
+            }
+        });
+    });
+</script>
